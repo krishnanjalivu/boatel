@@ -9,7 +9,7 @@ const router=express.Router();
 const storage=multer.memoryStorage();
 const upload=multer({
     storage:storage,
-    limits:{fileSize:1000000},
+    limits:{fileSize:5*1024*1024},
     
 
 })
@@ -46,9 +46,10 @@ try{
     newHotel.imageUrls=imageUrls
     newHotel.lastUpdated=new Date();
     newHotel.userId=req.userId;
-
+    console.log(newHotel.userId)
     const hotel=new Hotel(newHotel)
     await hotel.save();
+    
     res.status(201).send(hotel);
 
 }
